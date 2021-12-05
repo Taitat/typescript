@@ -32,3 +32,11 @@ function fill(length: number, value: string): string[] {
 }
 
 call(fill, 10, 'a')
+
+function is<T>(first: T, second: T): boolean{
+    return first === second
+}
+
+function restIs<T>(...args: T[]): boolean{
+    return args.every(v => v === args[0])
+}
