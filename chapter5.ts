@@ -91,15 +91,24 @@ class Sneaker implements Shoe {
     purpose = 'walking'
 }
 
-let Shoe = {
+// Type of Factory
+type ShoeCreator = {
+    create(type: 'balletFlat'): BalletFlat
+    create(type: 'boot'): Boot
+    create(type: 'sneaker'): Sneaker
+}
+
+let Shoe: ShoeCreator = {
     create(type: 'balletFlat' | 'boot' | 'sneaker'): Shoe {
         switch (type) {
-            case 'balletFlat': return new BalletFlat
-            case 'boot': return new Boot
-            case 'sneaker': return new Sneaker
+            case 'balletFlat': return new BalletFlat()
+            case 'boot': return new Boot()
+            case 'sneaker': return new Sneaker()
         }
     }
 }
+
+let shoes = Shoe.create('boot')
 
 // Builder Pattern
 
