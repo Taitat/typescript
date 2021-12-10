@@ -1,3 +1,5 @@
+// Chess engine
+
 type Color = 'Black' | 'White'
 type Files = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H'
 type Rank = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
@@ -47,4 +49,26 @@ class King extends Piece {
         let distance = this.position.distanceFrom(position)
         return distance.rank < 2 && distance.file < 2
     }
+}
+
+// Interface or Intersection Types
+
+interface A {
+    good(x: number): string
+    bad(x: number): string
+}
+
+interface B extends A {
+    good(x: string | number): string
+    bad(x: number): string
+}
+
+type C = {
+    good(x: number): string
+    bad(x: number): string
+}
+
+type D = C & {
+    good(x: string | number): string
+    bad(x: string): string
 }
