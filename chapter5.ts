@@ -113,22 +113,44 @@ let shoes = Shoe.create('boot')
 // Builder Pattern
 
 class RequestBuilder {
-    private url: string | null = null
-    private data: object | null = null
-    private method: 'get' | 'post' | null = null
-
-    setURL(url: string): this {
-        this.url = url
-        return this
-    }
+    protected url: string | null = null
+    protected data: object | null = null
+    protected method: 'get' | 'post' | null = null
 
     setData(data: object): this {
         this.data = data
         return this
     }
 
-    setMethod(method: 'get' | 'post'): this {
+    setMethod(method: 'get' | 'post'): RequestBuilderWithMethod {
+        return new RequestBuilderWithMethod().setMethod(method).setData(this.data)
+    }
+}
+
+class RequestBuilderWithMethod extends RequestBuilder {
+    setMethod(method: 'get' | 'post' | null): this {
         this.method = method
         return this
     }
+    setURL(url: string): RequestBuilderWithMethodAndURL {
+        return new RequestBuilderWithMethodAndURL()
+            .setMethod(this.method)
+            .setURL(url)
+            .setData(this.data)
+    }
 }
+
+class RequestBuilderWithMethodAndURL extends RequestBuilderWithMethod {
+    setURL(url: string): this {
+        this.url = url
+        return this
+    }
+    send(){
+    }
+}
+
+new RequestBuilder()
+    .setMethod('get')
+    .setData({})
+    .setURL('foo.com')
+    .send()
