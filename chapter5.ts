@@ -72,3 +72,54 @@ type D = C & {
     good(x: string | number): string
     bad(x: string): string
 }
+
+// Factory Pattern
+
+type Shoe = {
+    purpose: string
+}
+
+class BalletFlat implements Shoe {
+    purpose = 'dancing'
+}
+
+class Boot implements Shoe {
+    purpose = 'woodcutting'
+}
+
+class Sneaker implements Shoe {
+    purpose = 'walking'
+}
+
+let Shoe = {
+    create(type: 'balletFlat' | 'boot' | 'sneaker'): Shoe {
+        switch (type) {
+            case 'balletFlat': return new BalletFlat
+            case 'boot': return new Boot
+            case 'sneaker': return new Sneaker
+        }
+    }
+}
+
+// Builder Pattern
+
+class RequestBuilder {
+    private url: string | null = null
+    private data: object | null = null
+    private method: 'get' | 'post' | null = null
+
+    setURL(url: string): this {
+        this.url = url
+        return this
+    }
+
+    setData(data: object): this {
+        this.data = data
+        return this
+    }
+
+    setMethod(method: 'get' | 'post'): this {
+        this.method = method
+        return this
+    }
+}
